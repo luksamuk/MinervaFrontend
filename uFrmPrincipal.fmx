@@ -1,0 +1,68 @@
+object frmPrincipal: TfrmPrincipal
+  Left = 400
+  Top = 106
+  Caption = 'Minerva FrontEnd'
+  ClientHeight = 480
+  ClientWidth = 640
+  Position = ScreenCenter
+  FormFactor.Width = 320
+  FormFactor.Height = 480
+  FormFactor.Devices = [Desktop]
+  OnCreate = FormCreate
+  OnKeyDown = FormKeyDown
+  Left = 400
+  Top = 106
+  DesignerMasterStyle = 0
+  inline frameLogin: TfrmLogin
+    Align = Center
+    ClipChildren = True
+    Margins.Left = 100.000000000000000000
+    Margins.Top = 100.000000000000000000
+    Margins.Right = 100.000000000000000000
+    Margins.Bottom = 100.000000000000000000
+    Size.Width = 600.000000000000000000
+    Size.Height = 371.000000000000000000
+    Size.PlatformDefault = False
+    inherited Layout: TLayout
+      Size.Width = 600.000000000000000000
+      Size.Height = 371.000000000000000000
+      inherited rectBackground: TRectangle
+        Size.Width = 600.000000000000000000
+        Size.Height = 371.000000000000000000
+      end
+      inherited edtLogin: TEdit
+        Size.Width = 400.000000000000000000
+      end
+      inherited edtSenha: TEdit
+        Size.Width = 400.000000000000000000
+        OnKeyDown = frameLoginedtSenhaKeyDown
+      end
+      inherited btnEntrar: TButton
+        Size.Width = 400.000000000000000000
+        OnClick = frameLoginbtnEntrarClick
+      end
+    end
+  end
+  object stbBarraStatus: TStatusBar
+    Position.Y = 451.000000000000000000
+    ShowSizeGrip = True
+    Size.Width = 640.000000000000000000
+    Size.Height = 29.000000000000000000
+    Size.PlatformDefault = False
+    TabOrder = 1
+    object lblUsuarioLogado: TLabel
+      Align = Client
+      Margins.Left = 10.000000000000000000
+      Margins.Right = 20.000000000000000000
+      Size.Width = 610.000000000000000000
+      Size.Height = 29.000000000000000000
+      Size.PlatformDefault = False
+      TabOrder = 0
+    end
+  end
+  object RestCliente: TRESTClient
+    Params = <>
+    Left = 24
+    Top = 8
+  end
+end

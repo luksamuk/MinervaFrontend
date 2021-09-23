@@ -1,0 +1,76 @@
+object frmLogin: TfrmLogin
+  Margins.Top = 10.000000000000000000
+  Size.Width = 685.000000000000000000
+  Size.Height = 422.000000000000000000
+  Size.PlatformDefault = False
+  object Layout: TLayout
+    Align = Client
+    Anchors = [akTop, akBottom]
+    Size.Width = 685.000000000000000000
+    Size.Height = 422.000000000000000000
+    Size.PlatformDefault = False
+    TabOrder = 0
+    object rectBackground: TRectangle
+      Fill.Kind = Gradient
+      Fill.Gradient.Points = <
+        item
+          Color = claSlateblue
+          Offset = 0.000000000000000000
+        end
+        item
+          Color = claWhite
+          Offset = 1.000000000000000000
+        end>
+      Size.Width = 685.000000000000000000
+      Size.Height = 422.000000000000000000
+      Size.PlatformDefault = False
+      XRadius = 50.000000000000000000
+      YRadius = 50.000000000000000000
+    end
+    object edtLogin: TEdit
+      Touch.InteractiveGestures = [LongTap, DoubleTap]
+      Align = Top
+      TabOrder = 0
+      Position.X = 100.000000000000000000
+      Position.Y = 170.000000000000000000
+      Margins.Left = 100.000000000000000000
+      Margins.Top = 170.000000000000000000
+      Margins.Right = 100.000000000000000000
+      Margins.Bottom = 10.000000000000000000
+      Size.Width = 485.000000000000000000
+      Size.Height = 40.000000000000000000
+      Size.PlatformDefault = False
+      TextPrompt = 'Login'
+    end
+    object edtSenha: TEdit
+      Touch.InteractiveGestures = [LongTap, DoubleTap]
+      Align = Top
+      TabOrder = 1
+      Password = True
+      Position.X = 100.000000000000000000
+      Position.Y = 230.000000000000000000
+      Margins.Left = 100.000000000000000000
+      Margins.Top = 10.000000000000000000
+      Margins.Right = 100.000000000000000000
+      Margins.Bottom = 10.000000000000000000
+      Size.Width = 485.000000000000000000
+      Size.Height = 40.000000000000000000
+      Size.PlatformDefault = False
+      TextPrompt = 'Senha'
+    end
+    object btnEntrar: TButton
+      Align = Top
+      Margins.Left = 100.000000000000000000
+      Margins.Top = 10.000000000000000000
+      Margins.Right = 100.000000000000000000
+      Position.X = 100.000000000000000000
+      Position.Y = 290.000000000000000000
+      Size.Width = 485.000000000000000000
+      Size.Height = 33.000000000000000000
+      Size.PlatformDefault = False
+      StyleLookup = 'arrowrighttoolbuttonbordered'
+      TabOrder = 2
+      Text = 'Entrar'
+    end
+  end
+end

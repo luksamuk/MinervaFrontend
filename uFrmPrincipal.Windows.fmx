@@ -1,0 +1,10 @@
+inherited frmPrincipal_Windows: TfrmPrincipal_Windows
+  DesignerMasterStyle = 0
+  inherited frameLogin: TfrmLogin
+    inherited Layout: TLayout
+      inherited rectBackground: TRectangle
+        Margins.Bottom = 100.000000000000000000
+      end
+    end
+  end
+end

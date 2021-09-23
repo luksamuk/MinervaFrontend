@@ -1,0 +1,34 @@
+inherited frmPrincipal_Surface: TfrmPrincipal_Surface
+  ClientHeight = 1920
+  ClientWidth = 1080
+  DesignerMasterStyle = 0
+  inherited frameLogin: TfrmLogin
+    Size.Width = 880.000000000000000000
+    Size.Height = 1691.000000000000000000
+    inherited Layout: TLayout
+      Size.Width = 880.000000000000000000
+      Size.Height = 1691.000000000000000000
+      inherited rectBackground: TRectangle
+        Margins.Bottom = 100.000000000000000000
+        Size.Width = 880.000000000000000000
+        Size.Height = 1591.000000000000000000
+      end
+      inherited edtLogin: TEdit
+        Size.Width = 680.000000000000000000
+      end
+      inherited edtSenha: TEdit
+        Size.Width = 680.000000000000000000
+      end
+      inherited btnEntrar: TButton
+        Size.Width = 680.000000000000000000
+      end
+    end
+  end
+  inherited stbBarraStatus: TStatusBar
+    Position.Y = 1891.000000000000000000
+    Size.Width = 1080.000000000000000000
+    inherited lblUsuarioLogado: TLabel
+      Size.Width = 1050.000000000000000000
+    end
+  end
+end

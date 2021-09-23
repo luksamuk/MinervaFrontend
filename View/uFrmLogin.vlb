@@ -1,0 +1,12 @@
+﻿[btnEntrar]
+Coordinates=163,10,60,51
+
+[edtLogin]
+Coordinates=89,10,57,51
+
+[edtSenha]
+Coordinates=10,10,60,51
+
+[Layout]
+Coordinates=10,78,53,33
+

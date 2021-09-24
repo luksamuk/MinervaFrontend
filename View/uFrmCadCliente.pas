@@ -29,13 +29,14 @@ type
   public
     { Public declarations }
     constructor Create(Owner: TComponent); override;
+
     property Processando: Boolean read mProcessando write setProcessando;
   end;
 
 implementation
 
 uses
-   uFrmPrincipal, REST.Types, REST.Client, System.JSON, FMX.DialogService;
+   uFrmPrincipal, REST.Types, REST.Client, System.JSON, FMX.DialogService, StrUtils;
 
 {$R *.fmx}
 
@@ -88,8 +89,9 @@ begin
             begin
                xJsonVal.TryGetValue<String>('mensagem', xMensagem);
                TDialogService.ShowMessage(
-                  'Ocorreu um erro ao cadastrar o cliente:'#13 +
-                  IntToStr(xRes.StatusCode) + ' - ' + xMensagem);
+                  'Ocorreu um erro ao cadastrar o cliente'#13 +
+                   IfThen(xMensagem <> EmptyStr,
+                     xMensagem + ' (' + IntToStr(xRes.StatusCode) + ')'));
                Exit;
             end;
 
@@ -123,6 +125,7 @@ end;
 procedure TfrmCadCliente.btnVoltarClick(Sender: TObject);
 begin
    Self.Free;
+   frmPrincipal.AbreMenuPrincipal;
 end;
 
 constructor TfrmCadCliente.Create(Owner: TComponent);

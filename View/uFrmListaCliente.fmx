@@ -1,0 +1,120 @@
+object frmListaCliente: TfrmListaCliente
+  Size.Width = 520.000000000000000000
+  Size.Height = 461.000000000000000000
+  Size.PlatformDefault = False
+  object btnVoltar: TButton
+    Position.X = 12.000000000000000000
+    Position.Y = 11.000000000000000000
+    StyleLookup = 'backtoolbutton'
+    TabOrder = 5
+    Text = 'Voltar'
+    OnClick = btnVoltarClick
+  end
+  object lblTitulo: TLabel
+    Position.X = 21.000000000000000000
+    Position.Y = 36.000000000000000000
+    Size.Width = 177.000000000000000000
+    Size.Height = 25.000000000000000000
+    Size.PlatformDefault = False
+    StyleLookup = 'listboxheaderlabel'
+    Text = 'Listagem de Clientes'
+    TabOrder = 0
+  end
+  object grdClientes: TGrid
+    Anchors = [akLeft, akTop, akRight, akBottom]
+    CanFocus = True
+    ClipChildren = True
+    Locked = True
+    Position.X = 21.000000000000000000
+    Position.Y = 69.000000000000000000
+    Size.Width = 479.000000000000000000
+    Size.Height = 330.000000000000000000
+    Size.PlatformDefault = False
+    StyleLookup = 'gridstyle'
+    TabOrder = 6
+    RowCount = 0
+    Options = [AlternatingRowBackground, ColLines, RowLines, RowSelect, Tabs, Header, HeaderClick, AutoDisplacement]
+    Viewport.Width = 475.000000000000000000
+    Viewport.Height = 305.000000000000000000
+  end
+  object pnlBotoes: TPanel
+    Align = Bottom
+    Position.Y = 407.000000000000000000
+    Size.Width = 520.000000000000000000
+    Size.Height = 54.000000000000000000
+    Size.PlatformDefault = False
+    TabOrder = 4
+    object btnPesquisar: TButton
+      Anchors = [akRight, akBottom]
+      Position.X = 369.000000000000000000
+      Position.Y = 9.000000000000000000
+      Size.Width = 128.000000000000000000
+      Size.Height = 33.000000000000000000
+      Size.PlatformDefault = False
+      StyleLookup = 'donetoolbutton'
+      TabOrder = 0
+      Text = 'Pesquisar'
+      OnClick = btnPesquisarClick
+    end
+  end
+  object cdsClientes: TClientDataSet
+    PersistDataPacket.Data = {
+      870000009619E0BD010000001800000006000000000003000000870002494404
+      00010000000000044E6F6D650100490000000100055749445448020002006400
+      02504A020003000000000009446F63756D656E746F0100490000000100055749
+      44544802000200140005417469766F020003000000000009426C6F7175656164
+      6F02000300000000000000}
+    Active = True
+    Aggregates = <>
+    FieldDefs = <
+      item
+        Name = 'ID'
+        DataType = ftInteger
+      end
+      item
+        Name = 'Nome'
+        DataType = ftString
+        Size = 100
+      end
+      item
+        Name = 'PJ'
+        DataType = ftBoolean
+      end
+      item
+        Name = 'Documento'
+        DataType = ftString
+        Size = 20
+      end
+      item
+        Name = 'Ativo'
+        DataType = ftBoolean
+      end
+      item
+        Name = 'Bloqueado'
+        DataType = ftBoolean
+      end>
+    IndexDefs = <>
+    Params = <>
+    StoreDefs = True
+    Left = 296
+    Top = 216
+  end
+  object bindGridClientes: TBindSourceDB
+    DataSet = cdsClientes
+    ScopeMappings = <>
+    Left = 216
+    Top = 216
+  end
+  object BindingsList1: TBindingsList
+    Methods = <>
+    OutputConverters = <>
+    Left = 132
+    Top = 221
+    object LinkGridToDataSourceBindSourceDB1: TLinkGridToDataSource
+      Category = 'Quick Bindings'
+      DataSource = bindGridClientes
+      GridControl = grdClientes
+      Columns = <>
+    end
+  end
+end

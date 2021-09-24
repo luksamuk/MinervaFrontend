@@ -21,15 +21,17 @@ type
     procedure frameLoginbtnEntrarClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
   private
-    mFrameAtual: TFrame;
+    mFrameMenu: TFrame;
 
     procedure RealizaLogin;
-    procedure AbreCadastroCliente;
   public
      MUrlBase: String;
      MIdUsuario: Integer;
      MUsuario: String;
      MToken: String;
+
+     constructor Create(Owner: TComponent); override;
+     procedure AbreMenuPrincipal;
   end;
 
 var
@@ -38,19 +40,30 @@ var
 implementation
 
 uses
-   System.JSON, FMX.DialogService, uFrmCadCliente;
+   System.JSON, FMX.DialogService, uFrmMenu, uFrmCadCliente;
 
 {$R *.fmx}
 {$R *.Surface.fmx MSWINDOWS}
 {$R *.Windows.fmx MSWINDOWS}
 
-procedure TfrmPrincipal.AbreCadastroCliente;
+procedure TfrmPrincipal.AbreMenuPrincipal;
 begin
-   mFrameAtual := TfrmCadCliente.Create(Application);
-   mFrameAtual.Parent := frmPrincipal;
-   mFrameAtual.Align := TAlignLayout.Client;
-   mFrameAtual.Visible := True;
-   mFrameAtual.SetFocus;
+   if mFrameMenu = nil then
+   begin
+      mFrameMenu := TfrmMenu.Create(Application);
+      mFrameMenu.Parent := frmPrincipal;
+      mFrameMenu.Align := TAlignLayout.Client;
+   end;
+   mFrameMenu.Visible := True;
+   mFrameMenu.Enabled := True;
+   if mFrameMenu.CanFocus then
+      mFrameMenu.SetFocus;
+end;
+
+constructor TfrmPrincipal.Create(Owner: TComponent);
+begin
+   inherited;
+   mFrameMenu := nil;
 end;
 
 procedure TfrmPrincipal.FormCreate(Sender: TObject);
@@ -125,7 +138,8 @@ begin
                frameLogin.ProcessandoLogin := False;
                TDialogService.ShowMessage(
                   'Erro ao realizar login:'#13 +
-                  xJsonVal.GetValue<String>('mensagem'));
+                  xJsonVal.GetValue<String>('mensagem') +
+                  ' (' + IntToStr(xRes.StatusCode) + ')');
 
                lblUsuarioLogado.Text := EmptyStr;
                frameLogin.edtLogin.SetFocus;
@@ -142,7 +156,8 @@ begin
 
             lblUsuarioLogado.Text := IntToStr(MIdUsuario) + ' - ' + MUsuario;
 
-            AbreCadastroCliente;
+            AbreMenuPrincipal;
+            //AbreCadastroCliente;
          finally
             if xReq <> nil then
                FreeAndNil(xReq);

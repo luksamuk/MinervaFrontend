@@ -9,7 +9,7 @@ uses
   FMX.Grid, Data.DB, Datasnap.DBClient, Data.Bind.EngExt, Fmx.Bind.DBEngExt,
   Fmx.Bind.Grid, System.Bindings.Outputs, Fmx.Bind.Editors,
   Data.Bind.Components, Data.Bind.Grid, Data.Bind.DBScope, REST.Types,
-  REST.Client, System.JSON;
+  REST.Client, System.JSON, FMX.frxClass, FMX.frxDBSet;
 
 type
   TfrmListaCliente = class(TFrame)
@@ -22,8 +22,12 @@ type
     LinkGridToDataSourceBindSourceDB1: TLinkGridToDataSource;
     pnlBotoes: TPanel;
     btnPesquisar: TButton;
+    frxListagemCliente: TfrxReport;
+    btnListar: TButton;
+    frxDBListagemCliente: TfrxDBDataset;
     procedure btnVoltarClick(Sender: TObject);
     procedure btnPesquisarClick(Sender: TObject);
+    procedure btnListarClick(Sender: TObject);
   private
     { Private declarations }
     procedure PopulaListaClientes(pJson: TJSONArray);
@@ -38,6 +42,16 @@ uses
    uFrmPrincipal, FMX.DialogService, StrUtils;
 
 {$R *.fmx}
+
+procedure TfrmListaCliente.btnListarClick(Sender: TObject);
+begin
+   if cdsClientes.IsEmpty then
+   begin
+      TDialogService.ShowMessage('Não há dados para serem mostrados.');
+      Exit;
+   end;
+   frxListagemCliente.ShowReport;
+end;
 
 procedure TfrmListaCliente.btnPesquisarClick(Sender: TObject);
 begin
@@ -121,6 +135,8 @@ end;
 procedure TfrmListaCliente.PopulaListaClientes(pJson: TJSONArray);
 var
    xObj: TJSONValue;
+   xArray: TJSONArray;
+   xAux: TJSONValue;
 begin
    cdsClientes.EmptyDataSet;
    for xObj in pJson do
@@ -132,6 +148,19 @@ begin
       cdsClientes.FieldByName('Documento').AsString  := xObj.GetValue<String>('docto');
       cdsClientes.FieldByName('Ativo').AsBoolean     := xObj.GetValue<Boolean>('ativo');
       cdsClientes.FieldByName('Bloqueado').AsBoolean := xObj.GetValue<Boolean>('bloqueado');
+
+      xArray := xObj.GetValue<TJSONArray>('enderecos');
+      if xArray.Count > 0 then
+      begin
+         xAux := xArray.Items[0];
+         cdsClientes.FieldByName('Logradouro').AsString  := xAux.GetValue<String>('logradouro');
+         cdsClientes.FieldByName('Numero').AsString      := xAux.GetValue<String>('numero');
+         cdsClientes.FieldByName('Complemento').AsString := xAux.GetValue<String>('complemento');
+         cdsClientes.FieldByName('Bairro').AsString      := xAux.GetValue<String>('bairro');
+         cdsClientes.FieldByName('UF').AsString          := xAux.GetValue<String>('uf');
+         cdsClientes.FieldByName('Cidade').AsString      := xAux.GetValue<String>('cidade');
+      end;
+
       cdsClientes.Post;
    end;
 end;

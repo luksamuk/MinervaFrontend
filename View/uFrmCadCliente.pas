@@ -36,7 +36,8 @@ type
 implementation
 
 uses
-   uFrmPrincipal, REST.Types, REST.Client, System.JSON, FMX.DialogService, StrUtils;
+   uFrmPrincipal, REST.Types, REST.Client, System.JSON, FMX.DialogService,
+   StrUtils;
 
 {$R *.fmx}
 

@@ -25,9 +25,11 @@ type
     frxListagemCliente: TfrxReport;
     btnListar: TButton;
     frxDBListagemCliente: TfrxDBDataset;
+    btnExcluir: TButton;
     procedure btnVoltarClick(Sender: TObject);
     procedure btnPesquisarClick(Sender: TObject);
     procedure btnListarClick(Sender: TObject);
+    procedure btnExcluirClick(Sender: TObject);
   private
     { Private declarations }
     procedure PopulaListaClientes(pJson: TJSONArray);
@@ -39,9 +41,59 @@ type
 implementation
 
 uses
-   uFrmPrincipal, FMX.DialogService, StrUtils;
+   uFrmPrincipal, FMX.DialogService, StrUtils, uMinervaRequest;
 
 {$R *.fmx}
+
+procedure TfrmListaCliente.btnExcluirClick(Sender: TObject);
+var
+   xResposta: TRESTResponse;
+   xID: String;
+begin
+   if cdsClientes.IsEmpty then
+   begin
+      TDialogService.ShowMessage('Não há clientes listados.');
+      Exit;
+   end;
+
+   xID := cdsClientes.FieldByName('ID').AsString;
+
+   TDialogService.MessageDialog(
+      'Deseja deletar o cliente de ID ' + xID + '?',
+      TMsgDlgType.mtConfirmation,
+      FMX.Dialogs.mbYesNo,
+      TMsgDlgBtn.mbNo,
+      0,
+      procedure(const pResult: TModalResult)
+      var
+         xJson: TJSONValue;
+      begin
+         case pResult of
+         mrYes:
+            begin
+               xResposta := TMinervaRequest.get.SyncRequest(
+                  rmDELETE, '/clientes/' + xID);
+
+               xJson := xResposta.JSONValue;
+
+               if xResposta.StatusCode <> 200 then
+               begin
+                  TDialogService.ShowMessage(
+                     'Erro ao deletar cliente:'#13 +
+                     xJson.GetValue<String>('mensagem'));
+                  Exit;
+               end;
+
+               cdsClientes.Delete;
+
+               TDialogService.ShowMessage(
+                  'Cliente deletado. ID: ' +
+                  IntToStr(xJson.GetValue<Integer>('id')));
+            end;
+         mrNo: Exit;
+         end;
+      end);
+end;
 
 procedure TfrmListaCliente.btnListarClick(Sender: TObject);
 begin
@@ -66,70 +118,32 @@ end;
 
 procedure TfrmListaCliente.CarregaListaClientes;
 var
-   xReq: TRESTRequest;
-   xRes: TRESTResponse;
+   xResposta: TRESTResponse;
+   xValores: TJSONValue;
+   xMensagem: String;
 begin
-   xReq := TRESTRequest.Create(nil);
-   xRes := TRESTResponse.Create(nil);
+   xMensagem := EmptyStr;
+   xResposta := TMinervaRequest.get.SyncRequest(rmGET, '/clientes');
 
-   xReq.Client := frmPrincipal.RestCliente;
-   xReq.Response := xRes;
+   if xResposta.StatusCode = 401 then
+   begin
+      TDialogService.ShowMessage('Erro no login do usuário.'#13);
+      Exit;
+   end;
 
-   xReq.Method := rmGET;
-   xReq.Params.AddItem('Authorization', 'Bearer ' + frmPrincipal.MToken,
-      pkHTTPHEADER, [poDoNotEncode]);
-   xReq.Resource := '/clientes';
+   xValores := xResposta.JSONValue;
 
-   btnPesquisar.Enabled := False;
+   if xResposta.StatusCode <> 200 then
+   begin
+      xValores.TryGetValue<String>('mensagem', xMensagem);
+      TDialogService.ShowMessage(
+         'Ocorreu um erro ao pesquisar clientes'#13 +
+          IfThen(xMensagem <> EmptyStr,
+            xMensagem + ' (' + IntToStr(xResposta.StatusCode) + ')'));
+      Exit;
+   end;
 
-   xReq.ExecuteAsync(
-      procedure
-      var
-         xMensagem: String;
-         xJsonVal: TJSONValue;
-      begin
-         xMensagem := EmptyStr;
-         try
-            if xRes.StatusCode = 401 then
-            begin
-               TDialogService.ShowMessage('Erro no login do usuário.'#13);
-               Exit;
-            end;
-
-            xJsonVal := xRes.JSONValue;
-
-            if xRes.StatusCode <> 200 then
-            begin
-               xJsonVal.TryGetValue<String>('mensagem', xMensagem);
-               TDialogService.ShowMessage(
-                  'Ocorreu um erro ao pesquisar clientes'#13 +
-                   IfThen(xMensagem <> EmptyStr,
-                     xMensagem + ' (' + IntToStr(xRes.StatusCode) + ')'));
-               Exit;
-            end;
-
-            PopulaListaClientes(TJSONArray(xJsonVal));
-         finally
-            if xReq <> nil then
-               FreeAndNil(xReq);
-            btnPesquisar.Enabled := True;
-         end;
-      end,
-      True,
-      True,
-      procedure(pError: TObject)
-      var
-         E: ERESTException;
-      begin
-         E := ERESTException(pError);
-         TDialogService.ShowMessage(
-            'Ocorreu um erro ao pesquisar clientes:'#13 +
-            E.Message);
-
-         if xReq <> nil then
-            FreeAndNil(xReq);
-         btnPesquisar.Enabled := True;
-      end);
+   PopulaListaClientes(TJSONArray(xValores));
 end;
 
 procedure TfrmListaCliente.PopulaListaClientes(pJson: TJSONArray);

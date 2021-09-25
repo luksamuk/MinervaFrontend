@@ -40,7 +40,7 @@ var
 implementation
 
 uses
-   System.JSON, FMX.DialogService, uFrmMenu, uFrmCadCliente;
+   System.JSON, FMX.DialogService, uFrmMenu, uFrmCadCliente, uMinervaRequest;
 
 {$R *.fmx}
 {$R *.Surface.fmx MSWINDOWS}
@@ -74,6 +74,7 @@ begin
    MToken := '';
    RestCliente.BaseURL := MUrlBase;
    frameLogin.edtLogin.SetFocus;
+   TMinervaRequest.get.Client := RestCliente;
 end;
 
 procedure TfrmPrincipal.FormKeyDown(Sender: TObject; var Key: Word;
@@ -102,85 +103,28 @@ begin
 end;
 
 procedure TfrmPrincipal.RealizaLogin;
-var
-   xReq: TRESTRequest;
-   xRes: TRESTResponse;
-   xJson: TJSONObject;
-   xJsonVal: TJSONValue;
 begin
-   xReq := nil;
-   xRes := nil;
+   FrameLogin.ProcessandoLogin := True;
+   Application.ProcessMessages;
 
-   xReq := TRESTRequest.Create(nil);
-   xRes := TRESTResponse.Create(nil);
-   xJson := TJSONObject.Create;
+   TMinervaRequest.get.GetUserToken(
+      frameLogin.edtLogin.Text,
+      frameLogin.edtSenha.Text);
 
-   xReq.Client := RestCliente;
-   xReq.Response := xRes;
+   FrameLogin.ProcessandoLogin := False;
+   Application.ProcessMessages;
 
-   xJson.AddPair('login', frameLogin.edtLogin.Text);
-   xJson.AddPair('senha', frameLogin.edtSenha.Text);
-
-   xReq.Method := rmPOST;
-   xReq.AddParameter('Body', xJson, True);
-   xReq.Resource := '/login';
-
-   frameLogin.ProcessandoLogin := True;
-
-   lblUsuarioLogado.Text := 'Realizando login...';
-   xReq.ExecuteAsync(
-      procedure
-      begin
-         try
-            xJsonVal := xRes.JSONValue;
-            if xRes.StatusCode <> 200 then
-            begin
-               frameLogin.ProcessandoLogin := False;
-               TDialogService.ShowMessage(
-                  'Erro ao realizar login:'#13 +
-                  xJsonVal.GetValue<String>('mensagem') +
-                  ' (' + IntToStr(xRes.StatusCode) + ')');
-
-               lblUsuarioLogado.Text := EmptyStr;
-               frameLogin.edtLogin.SetFocus;
-               Exit;
-            end;
-
-            // Coleta dados do usuário recebidos como retorno
-            // no login
-            MIdUsuario := xJsonVal.GetValue<Integer>('id');
-            MUsuario := xJsonVal.GetValue<String>('login');
-            MToken := xJsonVal.GetValue<String>('token');
-
-            frameLogin.Visible := False;
-
-            lblUsuarioLogado.Text := IntToStr(MIdUsuario) + ' - ' + MUsuario;
-
-            AbreMenuPrincipal;
-            //AbreCadastroCliente;
-         finally
-            if xReq <> nil then
-               FreeAndNil(xReq);
-         end;
-      end,
-      True,
-      True,
-      procedure(pError: TObject)
-      var
-         E: ERESTException;
-      begin
-         E := ERESTException(pError);
-         frameLogin.ProcessandoLogin := False;
-         TDialogService.ShowMessage(
-            'Ocorreu um erro ao processar os dados de login:'#13 +
-            E.Message);
-
-         lblUsuarioLogado.Text := EmptyStr;
-         frameLogin.edtLogin.SetFocus;
-
-         if xReq <> nil then
-            FreeAndNil(xReq);
-      end);
+   if TMinervaRequest.get.LoginUsuario <> EmptyStr then
+   begin
+      lblUsuarioLogado.Text :=
+         IntToStr(TMinervaRequest.get.IdUsuario) +
+         ' - ' +
+         TMinervaRequest.get.LoginUsuario;
+      frameLogin.Visible := False;
+      AbreMenuPrincipal;
+   end
+   else
+      lblUsuarioLogado.Text := EmptyStr;
 end;
 
 end.

@@ -25,6 +25,7 @@ type
     { Private declarations }
     mProcessando: Boolean;
     procedure setProcessando(Value: Boolean);
+    procedure CadastraCliente;
     procedure LimpaTela;
   public
     { Public declarations }
@@ -37,96 +38,60 @@ implementation
 
 uses
    uFrmPrincipal, REST.Types, REST.Client, System.JSON, FMX.DialogService,
-   StrUtils;
+   StrUtils, uMinervaRequest;
 
 {$R *.fmx}
 
 procedure TfrmCadCliente.btnCadastrarClick(Sender: TObject);
-var
-   xReq: TRESTRequest;
-   xRes: TRESTResponse;
-   xJson: TJSONObject;
-   xJsonVal: TJSONValue;
 begin
-   xReq := nil;
-   xRes := nil;
-
-   xReq := TRESTRequest.Create(nil);
-   xRes := TRESTResponse.Create(nil);
-   xJson := TJSONObject.Create;
-
-   xReq.Client := frmPrincipal.RestCliente;
-   xReq.Response := xRes;
-
-   xJson.AddPair('nome', edtNome.Text);
-   xJson.AddPair('pj', rdPessoaJuridica.IsChecked);
-   xJson.AddPair('docto', edtCpfCnpj.Text);
-   xJson.AddPair('enderecos', TJSONArray.Create);
-
-   xReq.Method := rmPOST;
-   xReq.Params.AddItem('Authorization', 'Bearer ' + frmPrincipal.MToken,
-      pkHTTPHEADER, [poDoNotEncode]);
-   xReq.AddParameter('Body', xJson);
-   xReq.Resource := '/clientes';
-
-   Processando := True;
-
-   xReq.ExecuteAsync(
-      procedure
-      var
-         xMensagem: String;
-      begin
-         xMensagem := EmptyStr;
-         try
-            xJsonVal := xRes.JSONValue;
-
-            if xRes.StatusCode = 401 then
-            begin
-               TDialogService.ShowMessage('Erro no login do usuário.'#13);
-               Exit;
-            end;
-
-            if xRes.StatusCode <> 200 then
-            begin
-               xJsonVal.TryGetValue<String>('mensagem', xMensagem);
-               TDialogService.ShowMessage(
-                  'Ocorreu um erro ao cadastrar o cliente'#13 +
-                   IfThen(xMensagem <> EmptyStr,
-                     xMensagem + ' (' + IntToStr(xRes.StatusCode) + ')'));
-               Exit;
-            end;
-
-            TDialogService.ShowMessage(
-               'Cliente cadastrado com sucesso.'#13 +
-               'ID: ' + IntToStr(xJsonVal.GetValue<Integer>('id')));
-         finally
-            if xReq <> nil then
-               FreeAndNil(xReq);
-            LimpaTela;
-            Processando := False;
-         end;
-      end,
-      True,
-      True,
-      procedure(pError: TObject)
-      var
-         E: ERESTException;
-      begin
-         E := ERESTException(pError);
-         TDialogService.ShowMessage(
-            'Ocorreu um erro ao cadastrar o cliente:'#13 +
-            E.Message);
-         Processando := False;
-
-         if xReq <> nil then
-            FreeAndNil(xReq);
-      end);
+   CadastraCliente;
 end;
 
 procedure TfrmCadCliente.btnVoltarClick(Sender: TObject);
 begin
    Self.Free;
    frmPrincipal.AbreMenuPrincipal;
+end;
+
+procedure TfrmCadCliente.CadastraCliente;
+var
+   xResposta: TRESTResponse;
+   xBody: TJSONObject;
+   xValores: TJSONValue;
+   xMensagem: String;
+begin
+   xMensagem := EmptyStr;
+   xBody := TJSONObject.Create;
+   xBody.AddPair('nome', edtNome.Text);
+   xBody.AddPair('pj', rdPessoaJuridica.IsChecked);
+   xBody.AddPair('docto', edtCpfCnpj.Text);
+   xBody.AddPair('enderecos', TJSONArray.Create);
+
+   xResposta := TMinervaRequest.get.SyncRequest(rmPOST, '/clientes', xBody);
+
+   if xResposta.StatusCode = 401 then
+   begin
+      TDialogService.ShowMessage('Erro no login do usuário.'#13);
+      Exit;
+   end;
+
+   xValores := xResposta.JSONValue;
+
+   if xResposta.StatusCode <> 200 then
+   begin
+      xValores.TryGetValue<String>('mensagem', xMensagem);
+      TDialogService.ShowMessage(
+         'Ocorreu um erro ao cadastrar o cliente'#13 +
+          IfThen(xMensagem <> EmptyStr,
+            xMensagem + ' (' + IntToStr(xResposta.StatusCode) + ')'));
+      Exit;
+   end;
+
+   TDialogService.ShowMessage(
+      'Cliente cadastrado com sucesso.'#13 +
+      'ID: ' + IntToStr(xValores.GetValue<Integer>('id')));
+
+   LimpaTela;
 end;
 
 constructor TfrmCadCliente.Create(Owner: TComponent);

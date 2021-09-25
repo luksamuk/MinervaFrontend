@@ -6,7 +6,7 @@ object frmListaCliente: TfrmListaCliente
     Position.X = 12.000000000000000000
     Position.Y = 11.000000000000000000
     StyleLookup = 'backtoolbutton'
-    TabOrder = 2
+    TabOrder = 4
     Text = 'Voltar'
     OnClick = btnVoltarClick
   end
@@ -18,7 +18,7 @@ object frmListaCliente: TfrmListaCliente
     Size.PlatformDefault = False
     StyleLookup = 'listboxheaderlabel'
     Text = 'Listagem de Clientes'
-    TabOrder = 0
+    TabOrder = 1
   end
   object grdClientes: TGrid
     Anchors = [akLeft, akTop, akRight, akBottom]
@@ -31,7 +31,7 @@ object frmListaCliente: TfrmListaCliente
     Size.Height = 330.000000000000000000
     Size.PlatformDefault = False
     StyleLookup = 'gridstyle'
-    TabOrder = 5
+    TabOrder = 0
     RowCount = 0
     Options = [AlternatingRowBackground, ColLines, RowLines, RowSelect, Tabs, Header, HeaderClick, AutoDisplacement]
     Viewport.Width = 475.000000000000000000
@@ -43,7 +43,7 @@ object frmListaCliente: TfrmListaCliente
     Size.Width = 520.000000000000000000
     Size.Height = 54.000000000000000000
     Size.PlatformDefault = False
-    TabOrder = 4
+    TabOrder = 5
     object btnPesquisar: TButton
       Anchors = [akRight, akBottom]
       Position.X = 369.000000000000000000
@@ -51,8 +51,7 @@ object frmListaCliente: TfrmListaCliente
       Size.Width = 128.000000000000000000
       Size.Height = 33.000000000000000000
       Size.PlatformDefault = False
-      StyleLookup = 'donetoolbutton'
-      TabOrder = 1
+      TabOrder = 0
       Text = 'Pesquisar'
       OnClick = btnPesquisarClick
     end
@@ -63,10 +62,19 @@ object frmListaCliente: TfrmListaCliente
       Size.Width = 128.000000000000000000
       Size.Height = 33.000000000000000000
       Size.PlatformDefault = False
-      StyleLookup = 'donetoolbutton'
-      TabOrder = 0
+      TabOrder = 2
       Text = 'Listar'
       OnClick = btnListarClick
+    end
+    object btnExcluir: TButton
+      Position.X = 21.000000000000000000
+      Position.Y = 8.000000000000000000
+      Size.Width = 43.000000000000000000
+      Size.Height = 33.000000000000000000
+      Size.PlatformDefault = False
+      TabOrder = 3
+      Text = 'Excluir'
+      OnClick = btnExcluirClick
     end
   end
   object cdsClientes: TClientDataSet

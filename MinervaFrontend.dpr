@@ -7,7 +7,8 @@ uses
   uFrmLogin in 'View\uFrmLogin.pas' {frmLogin: TFrame},
   uFrmCadCliente in 'View\uFrmCadCliente.pas' {frmCadCliente: TFrame},
   uFrmMenu in 'View\uFrmMenu.pas' {frmMenu: TFrame},
-  uFrmListaCliente in 'View\uFrmListaCliente.pas' {frmListaCliente: TFrame};
+  uFrmListaCliente in 'View\uFrmListaCliente.pas' {frmListaCliente: TFrame},
+  uMinervaRequest in 'Utils\uMinervaRequest.pas';
 
 {$R *.res}
 

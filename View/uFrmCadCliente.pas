@@ -127,8 +127,14 @@ end;
 
 procedure TfrmCadCliente.LimpaTela;
 begin
-   edtNome.Text    := EmptyStr;
-   edtCpfCnpj.Text := EmptyStr;
+   edtNome.Text        := EmptyStr;
+   edtCpfCnpj.Text     := EmptyStr;
+   edtLogradouro.Text  := EmptyStr;
+   edtComplemento.Text := EmptyStr;
+   edtNumero.Text      := EmptyStr;
+   edtBairro.Text      := EmptyStr;
+   edtCidade.Text      := EmptyStr;
+   cmbUF.ItemIndex     := -1;
    rdPessoaFisica.IsChecked := True;
 end;
 

@@ -1,6 +1,6 @@
 object frmCadCliente: TfrmCadCliente
   Size.Width = 598.000000000000000000
-  Size.Height = 446.000000000000000000
+  Size.Height = 534.000000000000000000
   Size.PlatformDefault = False
   object lblTitulo: TLabel
     Position.X = 21.000000000000000000
@@ -10,13 +10,13 @@ object frmCadCliente: TfrmCadCliente
     Size.PlatformDefault = False
     StyleLookup = 'listboxheaderlabel'
     Text = 'Cadastro de Clientes'
-    TabOrder = 0
+    TabOrder = 6
   end
   object edtNome: TEdit
     Touch.InteractiveGestures = [LongTap, DoubleTap]
     Anchors = [akLeft, akTop, akRight]
     StyleLookup = 'editstyle'
-    TabOrder = 1
+    TabOrder = 0
     Position.X = 21.000000000000000000
     Position.Y = 74.000000000000000000
     Size.Width = 554.000000000000000000
@@ -32,7 +32,7 @@ object frmCadCliente: TfrmCadCliente
     Size.Height = 56.000000000000000000
     Size.PlatformDefault = False
     Text = 'Tipo de Pessoa'
-    TabOrder = 2
+    TabOrder = 1
     object pnlTipoPessoa: TPanel
       Align = Center
       Margins.Top = 10.000000000000000000
@@ -69,7 +69,7 @@ object frmCadCliente: TfrmCadCliente
   object edtCpfCnpj: TEdit
     Touch.InteractiveGestures = [LongTap, DoubleTap]
     Anchors = [akLeft, akTop, akRight]
-    TabOrder = 3
+    TabOrder = 2
     Position.X = 21.000000000000000000
     Position.Y = 178.000000000000000000
     Size.Width = 554.000000000000000000
@@ -79,7 +79,7 @@ object frmCadCliente: TfrmCadCliente
   end
   object pnlBotoes: TPanel
     Align = Bottom
-    Position.Y = 392.000000000000000000
+    Position.Y = 480.000000000000000000
     Size.Width = 598.000000000000000000
     Size.Height = 54.000000000000000000
     Size.PlatformDefault = False
@@ -91,18 +91,120 @@ object frmCadCliente: TfrmCadCliente
       Size.Width = 128.000000000000000000
       Size.Height = 33.000000000000000000
       Size.PlatformDefault = False
-      StyleLookup = 'donetoolbutton'
       TabOrder = 0
       Text = 'Cadastrar'
       OnClick = btnCadastrarClick
     end
   end
   object btnVoltar: TButton
-    Position.X = 12.000000000000000000
+    Position.X = 8.000000000000000000
     Position.Y = 11.000000000000000000
     StyleLookup = 'backtoolbutton'
     TabOrder = 5
     Text = 'Voltar'
     OnClick = btnVoltarClick
+  end
+  object grpEndereco: TGroupBox
+    Anchors = [akLeft, akTop, akRight]
+    Position.X = 21.000000000000000000
+    Position.Y = 216.000000000000000000
+    Size.Width = 554.000000000000000000
+    Size.Height = 256.000000000000000000
+    Size.PlatformDefault = False
+    Text = 'Endere'#231'o'
+    TabOrder = 3
+    object edtLogradouro: TEdit
+      Touch.InteractiveGestures = [LongTap, DoubleTap]
+      Anchors = [akLeft, akTop, akRight]
+      TabOrder = 0
+      Position.X = 8.000000000000000000
+      Position.Y = 26.000000000000000000
+      Size.Width = 538.000000000000000000
+      Size.Height = 30.000000000000000000
+      Size.PlatformDefault = False
+      TextPrompt = 'Logradouro'
+    end
+    object edtComplemento: TEdit
+      Touch.InteractiveGestures = [LongTap, DoubleTap]
+      Anchors = [akLeft, akTop, akRight]
+      TabOrder = 2
+      Position.X = 8.000000000000000000
+      Position.Y = 102.000000000000000000
+      Size.Width = 538.000000000000000000
+      Size.Height = 30.000000000000000000
+      Size.PlatformDefault = False
+      TextPrompt = 'Complemento'
+    end
+    object edtNumero: TEdit
+      Touch.InteractiveGestures = [LongTap, DoubleTap]
+      Anchors = [akLeft, akTop, akRight]
+      TabOrder = 1
+      Position.X = 8.000000000000000000
+      Position.Y = 64.000000000000000000
+      Size.Width = 538.000000000000000000
+      Size.Height = 30.000000000000000000
+      Size.PlatformDefault = False
+      TextPrompt = 'N'#250'mero'
+    end
+    object edtBairro: TEdit
+      Touch.InteractiveGestures = [LongTap, DoubleTap]
+      Anchors = [akLeft, akTop, akRight]
+      TabOrder = 3
+      Position.X = 8.000000000000000000
+      Position.Y = 140.000000000000000000
+      Size.Width = 538.000000000000000000
+      Size.Height = 30.000000000000000000
+      Size.PlatformDefault = False
+      TextPrompt = 'Bairro'
+    end
+    object edtCidade: TEdit
+      Touch.InteractiveGestures = [LongTap, DoubleTap]
+      Anchors = [akLeft, akTop, akRight]
+      TabOrder = 4
+      Position.X = 8.000000000000000000
+      Position.Y = 180.000000000000000000
+      Size.Width = 538.000000000000000000
+      Size.Height = 30.000000000000000000
+      Size.PlatformDefault = False
+      TextPrompt = 'Cidade'
+    end
+    object cmbUF: TComboBox
+      Anchors = [akLeft, akTop, akRight]
+      Items.Strings = (
+        'AC'
+        'AL'
+        'AM'
+        'AP'
+        'BA'
+        'CE'
+        'DF'
+        'ES'
+        'GO'
+        'MA'
+        'MG'
+        'MS'
+        'MT'
+        'PA'
+        'PB'
+        'PE'
+        'PI'
+        'PR'
+        'RJ'
+        'RN'
+        'RO'
+        'RR'
+        'RS'
+        'SC'
+        'SE'
+        'SP'
+        'TO')
+      Position.X = 8.000000000000000000
+      Position.Y = 218.000000000000000000
+      Size.Width = 538.000000000000000000
+      Size.Height = 30.000000000000000000
+      Size.PlatformDefault = False
+      StyleLookup = 'comboboxstyle'
+      TabOrder = 5
+    end
   end
 end

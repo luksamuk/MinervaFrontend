@@ -2,9 +2,10 @@ object frmPrincipal: TfrmPrincipal
   Left = 400
   Top = 106
   Caption = 'Minerva FrontEnd'
-  ClientHeight = 480
-  ClientWidth = 640
+  ClientHeight = 600
+  ClientWidth = 800
   Position = ScreenCenter
+  WindowState = wsMaximized
   FormFactor.Width = 320
   FormFactor.Height = 480
   FormFactor.Devices = [Desktop]
@@ -44,9 +45,9 @@ object frmPrincipal: TfrmPrincipal
     end
   end
   object stbBarraStatus: TStatusBar
-    Position.Y = 451.000000000000000000
+    Position.Y = 571.000000000000000000
     ShowSizeGrip = True
-    Size.Width = 640.000000000000000000
+    Size.Width = 800.000000000000000000
     Size.Height = 29.000000000000000000
     Size.PlatformDefault = False
     TabOrder = 1
@@ -54,7 +55,7 @@ object frmPrincipal: TfrmPrincipal
       Align = Client
       Margins.Left = 10.000000000000000000
       Margins.Right = 20.000000000000000000
-      Size.Width = 610.000000000000000000
+      Size.Width = 770.000000000000000000
       Size.Height = 29.000000000000000000
       Size.PlatformDefault = False
       TabOrder = 0

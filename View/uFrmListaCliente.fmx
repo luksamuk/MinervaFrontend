@@ -6,7 +6,7 @@ object frmListaCliente: TfrmListaCliente
     Position.X = 12.000000000000000000
     Position.Y = 11.000000000000000000
     StyleLookup = 'backtoolbutton'
-    TabOrder = 3
+    TabOrder = 2
     Text = 'Voltar'
     OnClick = btnVoltarClick
   end

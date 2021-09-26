@@ -40,7 +40,7 @@ object frmCadCliente: TfrmCadCliente
       Size.Height = 22.000000000000000000
       Size.PlatformDefault = False
       StyleLookup = 'pushpanel'
-      TabOrder = 37
+      TabOrder = 38
       object rdPessoaFisica: TRadioButton
         Anchors = [akLeft, akTop, akRight]
         GroupName = 'TipoPessoa'

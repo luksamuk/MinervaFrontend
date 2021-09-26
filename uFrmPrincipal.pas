@@ -26,9 +26,6 @@ type
     procedure RealizaLogin;
   public
      MUrlBase: String;
-     MIdUsuario: Integer;
-     MUsuario: String;
-     MToken: String;
 
      constructor Create(Owner: TComponent); override;
      procedure AbreMenuPrincipal;
@@ -69,9 +66,7 @@ end;
 procedure TfrmPrincipal.FormCreate(Sender: TObject);
 begin
    MUrlBase := 'https://my-minerva-test.herokuapp.com/';
-   MIdUsuario := 0;
-   MUsuario := '';
-   MToken := '';
+
    RestCliente.BaseURL := MUrlBase;
    frameLogin.edtLogin.SetFocus;
    TMinervaRequest.get.Client := RestCliente;

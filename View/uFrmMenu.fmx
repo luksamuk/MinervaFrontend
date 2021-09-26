@@ -7,7 +7,6 @@ object frmMenu: TfrmMenu
     Size.Width = 501.000000000000000000
     Size.Height = 81.000000000000000000
     Size.PlatformDefault = False
-    StyleLookup = 'toolbutton'
     TabOrder = 1
     Text = 'Cadastrar clientes'
     OnClick = btnCadastraClienteClick
@@ -18,7 +17,6 @@ object frmMenu: TfrmMenu
     Size.Width = 501.000000000000000000
     Size.Height = 81.000000000000000000
     Size.PlatformDefault = False
-    StyleLookup = 'toolbutton'
     TabOrder = 0
     Text = 'Listar clientes'
     OnClick = btnListaClientesClick

@@ -6,7 +6,7 @@ object frmListaCliente: TfrmListaCliente
     Position.X = 12.000000000000000000
     Position.Y = 11.000000000000000000
     StyleLookup = 'backtoolbutton'
-    TabOrder = 4
+    TabOrder = 3
     Text = 'Voltar'
     OnClick = btnVoltarClick
   end
@@ -34,8 +34,8 @@ object frmListaCliente: TfrmListaCliente
     TabOrder = 0
     RowCount = 0
     Options = [AlternatingRowBackground, ColLines, RowLines, RowSelect, Tabs, Header, HeaderClick, AutoDisplacement]
-    Viewport.Width = 475.000000000000000000
-    Viewport.Height = 305.000000000000000000
+    Viewport.Width = 479.000000000000000000
+    Viewport.Height = 330.000000000000000000
   end
   object pnlBotoes: TPanel
     Align = Bottom
@@ -62,7 +62,7 @@ object frmListaCliente: TfrmListaCliente
       Size.Width = 128.000000000000000000
       Size.Height = 33.000000000000000000
       Size.PlatformDefault = False
-      TabOrder = 2
+      TabOrder = 1
       Text = 'Listar'
       OnClick = btnListarClick
     end

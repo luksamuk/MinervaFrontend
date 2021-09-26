@@ -61,37 +61,42 @@ var
    xMensagem: String;
 begin
    xMensagem := EmptyStr;
-   xBody := TJSONObject.Create;
-   xBody.AddPair('nome', edtNome.Text);
-   xBody.AddPair('pj', rdPessoaJuridica.IsChecked);
-   xBody.AddPair('docto', edtCpfCnpj.Text);
-   xBody.AddPair('enderecos', TJSONArray.Create);
+   xBody := nil;
+   try
+      xBody := TJSONObject.Create;
+      xBody.AddPair('nome', edtNome.Text);
+      xBody.AddPair('pj', rdPessoaJuridica.IsChecked);
+      xBody.AddPair('docto', edtCpfCnpj.Text);
+      xBody.AddPair('enderecos', TJSONArray.Create);
 
-   xResposta := TMinervaRequest.get.SyncRequest(rmPOST, '/clientes', xBody);
+      xResposta := TMinervaRequest.get.SyncRequest(rmPOST, '/clientes', xBody);
 
-   if xResposta.StatusCode = 401 then
-   begin
-      TDialogService.ShowMessage('Erro no login do usuário.'#13);
-      Exit;
-   end;
+      if xResposta.StatusCode = 401 then
+      begin
+         TDialogService.ShowMessage('Erro no login do usuário.'#13);
+         Exit;
+      end;
 
-   xValores := xResposta.JSONValue;
+      xValores := xResposta.JSONValue;
 
-   if xResposta.StatusCode <> 200 then
-   begin
-      xValores.TryGetValue<String>('mensagem', xMensagem);
+      if xResposta.StatusCode <> 200 then
+      begin
+         xValores.TryGetValue<String>('mensagem', xMensagem);
+         TDialogService.ShowMessage(
+            'Ocorreu um erro ao cadastrar o cliente'#13 +
+             IfThen(xMensagem <> EmptyStr,
+               xMensagem + ' (' + IntToStr(xResposta.StatusCode) + ')'));
+         Exit;
+      end;
+
       TDialogService.ShowMessage(
-         'Ocorreu um erro ao cadastrar o cliente'#13 +
-          IfThen(xMensagem <> EmptyStr,
-            xMensagem + ' (' + IntToStr(xResposta.StatusCode) + ')'));
-      Exit;
+         'Cliente cadastrado com sucesso.'#13 +
+         'ID: ' + IntToStr(xValores.GetValue<Integer>('id')));
+      LimpaTela;
+   finally
+      if xBody <> nil then
+         FreeAndNil(xBody);
    end;
-
-   TDialogService.ShowMessage(
-      'Cliente cadastrado com sucesso.'#13 +
-      'ID: ' + IntToStr(xValores.GetValue<Integer>('id')));
-
-   LimpaTela;
 end;
 
 constructor TfrmCadCliente.Create(Owner: TComponent);

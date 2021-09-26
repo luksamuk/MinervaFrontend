@@ -20,7 +20,8 @@ type
       class function get: TMinervaRequest;
       procedure GetUserToken(pLogin, pSenha: String);
       function SyncRequest(pMethod: TRESTRequestMethod; pRoute: String;
-         pBody: TJSONObject = nil; pAuthorized: Boolean = True): TRESTResponse;
+        pBody: TJSONObject = nil;
+        pAuthorized: Boolean = True): TRESTResponse;
    end;
 
 var
@@ -29,7 +30,7 @@ var
 implementation
 
 uses
-   SysUtils, FMX.DialogService;
+   SysUtils, FMX.DialogService, System.UITypes;
 
 { TMinervaRequest }
 
@@ -53,6 +54,7 @@ var
    xBody: TJSONObject;
    xJson: TJSONValue;
 begin
+   xBody := nil;
    try
       xBody := TJSONObject.Create;
       xBody.AddPair('login', pLogin);
@@ -74,8 +76,8 @@ begin
       mLoginUsuario := xJson.GetValue<String>('login');
       mToken        := xJson.GetValue<String>('token');
    finally
-      //FreeAndNil(xBody);
-      //FreeAndNil(xResposta);
+      if xBody <> nil then
+         FreeAndNil(xBody);
    end;
 end;
 
@@ -84,12 +86,15 @@ function TMinervaRequest.SyncRequest(pMethod: TRESTRequestMethod;
   pAuthorized: Boolean): TRESTResponse;
 var
    xRequest: TRESTRequest;
+   xRetorno: TRESTResponse;
+   xLock: Boolean;
 begin
    xRequest := TRESTRequest.Create(nil);
-   Result   := TRESTResponse.Create(nil);
+   xRetorno := TRESTResponse.Create(nil);
+   xLock    := False;
 
    xRequest.Client   := Self.mClient;
-   xRequest.Response := Result;
+   xRequest.Response := xRetorno;
    xRequest.Method   := pMethod;
    xRequest.Resource := pRoute;
 
@@ -98,9 +103,43 @@ begin
          'Authorization', 'Bearer ' + mToken, pkHTTPHeader, [poDoNotEncode]);
 
    if pBody <> nil then
-      xRequest.AddParameter('Body', pBody);
+      xRequest.AddParameter(
+         'Body', TJSONObject(TJSONObject.ParseJSONValue(pBody.ToJSON)));
 
    xRequest.Execute;
+
+   if pAuthorized and (xRetorno.StatusCode = 401) then
+   begin
+      // Se a requisição não foi autorizada, provavelmente o token
+      // de acesso expirou. Peça para fazer login de novo.
+      xLock := True;
+      TDialogService.InputQuery(
+         'Faça login novamente',
+         ['Login:', #1'Senha:'], [mLoginUsuario, ''],
+         procedure(const pResultado: TModalResult; const pValores: array of string)
+         var
+            xNovoRetorno: TRESTResponse;
+         begin
+            if pResultado = mrCancel then
+            begin
+               xLock := False;
+               Exit;
+            end;
+
+            GetUserToken(pValores[0], pValores[1]);
+            xNovoRetorno := SyncRequest(pMethod, pRoute, pBody, pAuthorized);
+            FreeAndNil(xRetorno);
+            xRetorno := xNovoRetorno;
+            xLock := False;
+         end);
+   end;
+
+   // Spinlock aguardando a execução da continuation
+   // de nova tentativa de login
+   while xLock do
+      Sleep(500);
+
+   Result := xRetorno;
 end;
 
 end.

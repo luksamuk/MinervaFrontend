@@ -34,8 +34,8 @@ object frmListaCliente: TfrmListaCliente
     TabOrder = 0
     RowCount = 0
     Options = [AlternatingRowBackground, ColLines, RowLines, RowSelect, Tabs, Header, HeaderClick, AutoDisplacement]
-    Viewport.Width = 479.000000000000000000
-    Viewport.Height = 330.000000000000000000
+    Viewport.Width = 475.000000000000000000
+    Viewport.Height = 305.000000000000000000
   end
   object pnlBotoes: TPanel
     Align = Bottom
@@ -209,10 +209,10 @@ object frmListaCliente: TfrmListaCliente
       TopMargin = 10.000000000000000000
       BottomMargin = 10.000000000000000000
       object rtTitulo: TfrxReportTitle
-        Height = 68.031539999999990000
+        Height = 64.252010000000000000
         Top = 18.897650000000000000
         Width = 718.110700000000000000
-        object memoTitulo: TfrxMemoView
+        object lblTitulo: TfrxMemoView
           Top = 3.779530000000001000
           Width = 718.110700000000000000
           Height = 26.456710000000000000
@@ -228,7 +228,7 @@ object frmListaCliente: TfrmListaCliente
           ParentFont = False
           VAlign = vaCenter
         end
-        object memoNomeSistema: TfrxMemoView
+        object lblNomeSistema: TfrxMemoView
           Top = 31.133890000000000000
           Width = 718.110700000000000000
           Height = 18.897650000000000000
@@ -244,8 +244,8 @@ object frmListaCliente: TfrmListaCliente
           ParentFont = False
           VAlign = vaCenter
         end
-        object memoSeparadorTitulo: TfrxMemoView
-          Top = 51.031540000000010000
+        object lblSeparador1: TfrxMemoView
+          Top = 52.031540000000010000
           Width = 718.110700000000000000
           Height = 3.779530000000000000
           ShowHint = False
@@ -254,13 +254,14 @@ object frmListaCliente: TfrmListaCliente
           Font.Style = []
           Font.Color = claBlack
           Font.Height = -13.333333015441890000
+          Frame.Style = fsDouble
           Frame.Typ = [ftBottom]
           ParentFont = False
         end
       end
       object mdListaCliente: TfrxMasterData
         Height = 132.283550000000000000
-        Top = 143.622140000000000000
+        Top = 139.842610000000000000
         Width = 718.110700000000000000
         DataSet = frxDBListagemCliente
         DataSetName = 'frxDBDataset1'
@@ -319,24 +320,9 @@ object frmListaCliente: TfrmListaCliente
             'Documento:')
           ParentFont = False
         end
-        object lblEndereco: TfrxMemoView
-          Left = 2.779530000000000000
-          Top = 24.015770000000000000
-          Width = 79.370130000000000000
-          Height = 22.677180000000000000
-          ShowHint = False
-          Font.Name = 'Arial'
-          Font.PixelsPerInch = 96.000000000000000000
-          Font.Style = [fsBold, fsUnderline]
-          Font.Color = claBlack
-          Font.Height = -14.666666984558110000
-          Memo.UTF8W = (
-            'Endere'#231'o')
-          ParentFont = False
-        end
         object lblLogradouro: TfrxMemoView
           Left = 2.779530000000000000
-          Top = 46.031540000000010000
+          Top = 33.031540000000010000
           Width = 94.488249999999990000
           Height = 18.897650000000000000
           ShowHint = False
@@ -351,7 +337,7 @@ object frmListaCliente: TfrmListaCliente
         end
         object frxDBDataset1Logradouro: TfrxMemoView
           Left = 98.047310000000000000
-          Top = 46.811070000000000000
+          Top = 33.811070000000000000
           Width = 272.126160000000000000
           Height = 18.897650000000000000
           ShowHint = False
@@ -368,8 +354,8 @@ object frmListaCliente: TfrmListaCliente
           ParentFont = False
         end
         object lblNumero: TfrxMemoView
-          Left = 372.677490000000000000
-          Top = 46.031540000000010000
+          Left = 3.283550000000000000
+          Top = 57.267780000000020000
           Width = 64.252010000000000000
           Height = 18.897650000000000000
           ShowHint = False
@@ -383,8 +369,8 @@ object frmListaCliente: TfrmListaCliente
           ParentFont = False
         end
         object frxDBDataset1Numero: TfrxMemoView
-          Left = 437.929500000000000000
-          Top = 46.031540000000010000
+          Left = 68.535560000000000000
+          Top = 57.267780000000020000
           Width = 79.370130000000000000
           Height = 18.897650000000000000
           ShowHint = False
@@ -400,9 +386,9 @@ object frmListaCliente: TfrmListaCliente
             '[frxDBDataset1."Numero"]')
           ParentFont = False
         end
-        object Memo1: TfrxMemoView
-          Left = 2.779530000000000000
-          Top = 71.149659999999980000
+        object lblComplemento: TfrxMemoView
+          Left = 373.953000000000000000
+          Top = 33.692950000000000000
           Width = 109.606370000000000000
           Height = 18.897650000000000000
           ShowHint = False
@@ -416,9 +402,9 @@ object frmListaCliente: TfrmListaCliente
           ParentFont = False
         end
         object frxDBDataset1Complemento: TfrxMemoView
-          Left = 112.724490000000000000
-          Top = 71.370130000000020000
-          Width = 298.582870000000000000
+          Left = 483.897960000000000000
+          Top = 33.913420000000000000
+          Width = 230.551330000000000000
           Height = 18.897650000000000000
           ShowHint = False
           DataField = 'Complemento'
@@ -433,9 +419,9 @@ object frmListaCliente: TfrmListaCliente
             '[frxDBDataset1."Complemento"]')
           ParentFont = False
         end
-        object Memo2: TfrxMemoView
-          Left = 520.244280000000000000
-          Top = 46.370130000000020000
+        object lblBairro: TfrxMemoView
+          Left = 373.850340000000000000
+          Top = 57.606370000000000000
           Width = 56.692950000000000000
           Height = 18.897650000000000000
           ShowHint = False
@@ -449,8 +435,8 @@ object frmListaCliente: TfrmListaCliente
           ParentFont = False
         end
         object frxDBDataset1Bairro: TfrxMemoView
-          Left = 578.496290000000000000
-          Top = 46.590599999999990000
+          Left = 432.102350000000000000
+          Top = 57.826840000000000000
           Width = 136.063080000000000000
           Height = 18.897650000000000000
           ShowHint = False
@@ -466,9 +452,9 @@ object frmListaCliente: TfrmListaCliente
             '[frxDBDataset1."Bairro"]')
           ParentFont = False
         end
-        object Memo3: TfrxMemoView
-          Left = 416.016080000000000000
-          Top = 71.370130000000020000
+        object lblCidade: TfrxMemoView
+          Left = 2.622140000000000000
+          Top = 80.929190000000010000
           Width = 60.472480000000000000
           Height = 18.897650000000000000
           ShowHint = False
@@ -482,8 +468,8 @@ object frmListaCliente: TfrmListaCliente
           ParentFont = False
         end
         object frxDBDataset1Cidade: TfrxMemoView
-          Left = 477.488560000000000000
-          Top = 71.370130000000020000
+          Left = 64.094619999999990000
+          Top = 80.929190000000010000
           Width = 166.299320000000000000
           Height = 18.897650000000000000
           ShowHint = False
@@ -499,9 +485,9 @@ object frmListaCliente: TfrmListaCliente
             '[frxDBDataset1."Cidade"]')
           ParentFont = False
         end
-        object Memo4: TfrxMemoView
-          Left = 646.134200000000000000
-          Top = 71.047309999999980000
+        object lblUF: TfrxMemoView
+          Left = 374.362400000000000000
+          Top = 81.606370000000000000
           Width = 34.015770000000000000
           Height = 18.897650000000000000
           ShowHint = False
@@ -515,8 +501,8 @@ object frmListaCliente: TfrmListaCliente
           ParentFont = False
         end
         object frxDBDataset1UF: TfrxMemoView
-          Left = 680.976810000000000000
-          Top = 71.149659999999980000
+          Left = 409.205010000000000000
+          Top = 81.708720000000000000
           Width = 34.015770000000000000
           Height = 18.897650000000000000
           ShowHint = False
@@ -530,6 +516,21 @@ object frmListaCliente: TfrmListaCliente
           Font.Height = -13.333333015441890000
           Memo.UTF8W = (
             '[frxDBDataset1."UF"]')
+          ParentFont = False
+        end
+        object lblSeparador2: TfrxMemoView
+          Left = 18.779530000000000000
+          Top = 24.795300000000000000
+          Width = 680.315399999999700000
+          Height = 3.779530000000000000
+          ShowHint = False
+          Font.Name = 'Arial'
+          Font.PixelsPerInch = 96.000000000000000000
+          Font.Style = []
+          Font.Color = claBlack
+          Font.Height = -13.333333015441890000
+          Frame.Style = fsDash
+          Frame.Typ = [ftBottom]
           ParentFont = False
         end
       end

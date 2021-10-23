@@ -34,6 +34,7 @@ object frmListaCliente: TfrmListaCliente
     TabOrder = 0
     RowCount = 0
     Options = [AlternatingRowBackground, ColLines, RowLines, RowSelect, Tabs, Header, HeaderClick, AutoDisplacement]
+    OnDrawColumnCell = grdClientesDrawColumnCell
     Viewport.Width = 475.000000000000000000
     Viewport.Height = 305.000000000000000000
   end

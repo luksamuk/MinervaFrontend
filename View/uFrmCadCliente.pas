@@ -68,6 +68,7 @@ var
    xMensagem: String;
    xArray: TJSONArray;
    xEndereco: TJSONObject;
+   xBoolean: TJSONBool;
 begin
    xMensagem := EmptyStr;
    xBody := nil;
@@ -78,7 +79,7 @@ begin
       xArray.Add(xEndereco);
 
       xBody.AddPair('nome', edtNome.Text);
-      xBody.AddPair('pj', rdPessoaJuridica.IsChecked);
+      xBody.AddPair('pj', TJSONBool.Create(rdPessoaJuridica.IsChecked));
       xBody.AddPair('docto', edtCpfCnpj.Text);
       xBody.AddPair('enderecos', xArray);
 

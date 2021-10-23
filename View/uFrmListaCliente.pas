@@ -30,6 +30,9 @@ type
     procedure btnPesquisarClick(Sender: TObject);
     procedure btnListarClick(Sender: TObject);
     procedure btnExcluirClick(Sender: TObject);
+    procedure grdClientesDrawColumnCell(Sender: TObject; const Canvas: TCanvas;
+      const Column: TColumn; const Bounds: TRectF; const Row: Integer;
+      const Value: TValue; const State: TGridDrawStates);
   private
     { Private declarations }
     procedure PopulaListaClientes(pJson: TJSONArray);
@@ -144,6 +147,17 @@ begin
    end;
 
    PopulaListaClientes(TJSONArray(xValores));
+end;
+
+procedure TfrmListaCliente.grdClientesDrawColumnCell(Sender: TObject;
+  const Canvas: TCanvas; const Column: TColumn; const Bounds: TRectF;
+  const Row: Integer; const Value: TValue; const State: TGridDrawStates);
+var
+   xWidth: Single;
+begin
+   xWidth := 5 + Canvas.TextWidth(Value.ToString);
+   if xWidth > Column.Width then
+      Column.Width := xWidth;
 end;
 
 procedure TfrmListaCliente.PopulaListaClientes(pJson: TJSONArray);

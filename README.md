@@ -5,8 +5,8 @@ Criado por Lucas S. Vieira <lucasvieira@protonmail.com>
 ## Introdução
 
 Este projeto é uma implementação de interface para a o sistema Minerva, feito
-em Delphi 11. Seu principal propósito é ser um experimento de uso de FireMonkey
-em Delphi, e também avaliar a comunicação REST entre uma aplicação Delphi 11 e
+em Delphi 10.3. Seu principal propósito é ser um experimento de uso de FireMonkey
+em Delphi, e também avaliar a comunicação REST entre uma aplicação Delphi e
 um servidor remoto, totalmente feito em [Rust](https://www.rust-lang.org/).
 
 O Minerva FrontEnd comunica-se com uma API REST do projeto
@@ -19,7 +19,7 @@ O Minerva FrontEnd ainda está em sua fase pré-alfa.
 
 ## Dependências
 
-Este projeto foi feito em Delphi 11, então é essencial possuir o RAD Studio 11
+Este projeto foi feito em Delphi 10.3, então é essencial possuir o RAD Studio 10.3
 para compilá-lo.
 
 A única dependência do projeto é a extensão FastReport para FireMonkey, que

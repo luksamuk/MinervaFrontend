@@ -1,0 +1,11 @@
+{
+	"name": "MinervaFrontend",
+	"description": "Delphi front-end for Minerva.rs",
+	"version": "0.1.0",
+	"homepage": "",
+	"mainsrc": "./",
+	"projects": [],
+	"dependencies": {
+		"github.com/mateusvicente100/amazon-storage-service": "^1.0.1"
+	}
+}

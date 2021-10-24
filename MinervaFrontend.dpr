@@ -8,7 +8,8 @@ uses
   uFrmCadCliente in 'View\uFrmCadCliente.pas' {frmCadCliente: TFrame},
   uFrmMenu in 'View\uFrmMenu.pas' {frmMenu: TFrame},
   uFrmListaCliente in 'View\uFrmListaCliente.pas' {frmListaCliente: TFrame},
-  uMinervaRequest in 'Utils\uMinervaRequest.pas';
+  uMinervaRequest in 'Utils\uMinervaRequest.pas',
+  uMinervaS3 in 'Utils\uMinervaS3.pas';
 
 {$R *.res}
 

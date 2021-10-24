@@ -63,7 +63,7 @@ object frmListaCliente: TfrmListaCliente
       Size.Width = 128.000000000000000000
       Size.Height = 33.000000000000000000
       Size.PlatformDefault = False
-      TabOrder = 1
+      TabOrder = 2
       Text = 'Listar'
       OnClick = btnListarClick
     end
@@ -73,9 +73,20 @@ object frmListaCliente: TfrmListaCliente
       Size.Width = 43.000000000000000000
       Size.Height = 33.000000000000000000
       Size.PlatformDefault = False
-      TabOrder = 3
+      TabOrder = 4
       Text = 'Excluir'
       OnClick = btnExcluirClick
+    end
+    object btnUpload: TButton
+      Anchors = [akRight, akBottom]
+      Position.X = 136.000000000000000000
+      Position.Y = 9.000000000000000000
+      Size.Width = 87.000000000000000000
+      Size.Height = 33.000000000000000000
+      Size.PlatformDefault = False
+      TabOrder = 1
+      Text = 'Upload'
+      OnClick = btnUploadClick
     end
   end
   object cdsClientes: TClientDataSet
@@ -309,7 +320,7 @@ object frmListaCliente: TfrmListaCliente
         object lblDocumento: TfrxMemoView
           Left = 460.102660000000000000
           Top = 1.559060000000017000
-          Width = 94.488249999999990000
+          Width = 94.488250000000000000
           Height = 18.897650000000000000
           ShowHint = False
           Font.Name = 'Arial'
@@ -324,7 +335,7 @@ object frmListaCliente: TfrmListaCliente
         object lblLogradouro: TfrxMemoView
           Left = 2.779530000000000000
           Top = 33.031540000000010000
-          Width = 94.488249999999990000
+          Width = 94.488250000000000000
           Height = 18.897650000000000000
           ShowHint = False
           Font.Name = 'Arial'
@@ -356,7 +367,7 @@ object frmListaCliente: TfrmListaCliente
         end
         object lblNumero: TfrxMemoView
           Left = 3.283550000000000000
-          Top = 57.267780000000020000
+          Top = 57.267780000000030000
           Width = 64.252010000000000000
           Height = 18.897650000000000000
           ShowHint = False
@@ -371,7 +382,7 @@ object frmListaCliente: TfrmListaCliente
         end
         object frxDBDataset1Numero: TfrxMemoView
           Left = 68.535560000000000000
-          Top = 57.267780000000020000
+          Top = 57.267780000000030000
           Width = 79.370130000000000000
           Height = 18.897650000000000000
           ShowHint = False
@@ -389,7 +400,7 @@ object frmListaCliente: TfrmListaCliente
         end
         object lblComplemento: TfrxMemoView
           Left = 373.953000000000000000
-          Top = 33.692950000000000000
+          Top = 33.692950000000010000
           Width = 109.606370000000000000
           Height = 18.897650000000000000
           ShowHint = False
@@ -423,7 +434,7 @@ object frmListaCliente: TfrmListaCliente
         object lblBairro: TfrxMemoView
           Left = 373.850340000000000000
           Top = 57.606370000000000000
-          Width = 56.692950000000000000
+          Width = 56.692950000000010000
           Height = 18.897650000000000000
           ShowHint = False
           Font.Name = 'Arial'
@@ -455,7 +466,7 @@ object frmListaCliente: TfrmListaCliente
         end
         object lblCidade: TfrxMemoView
           Left = 2.622140000000000000
-          Top = 80.929190000000010000
+          Top = 80.929190000000000000
           Width = 60.472480000000000000
           Height = 18.897650000000000000
           ShowHint = False
@@ -470,7 +481,7 @@ object frmListaCliente: TfrmListaCliente
         end
         object frxDBDataset1Cidade: TfrxMemoView
           Left = 64.094619999999990000
-          Top = 80.929190000000010000
+          Top = 80.929190000000000000
           Width = 166.299320000000000000
           Height = 18.897650000000000000
           ShowHint = False
@@ -489,7 +500,7 @@ object frmListaCliente: TfrmListaCliente
         object lblUF: TfrxMemoView
           Left = 374.362400000000000000
           Top = 81.606370000000000000
-          Width = 34.015770000000000000
+          Width = 34.015770000000010000
           Height = 18.897650000000000000
           ShowHint = False
           Font.Name = 'Arial'
@@ -504,7 +515,7 @@ object frmListaCliente: TfrmListaCliente
         object frxDBDataset1UF: TfrxMemoView
           Left = 409.205010000000000000
           Top = 81.708720000000000000
-          Width = 34.015770000000000000
+          Width = 34.015770000000010000
           Height = 18.897650000000000000
           ShowHint = False
           DataField = 'UF'

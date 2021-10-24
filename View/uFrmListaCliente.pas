@@ -26,6 +26,7 @@ type
     btnListar: TButton;
     frxDBListagemCliente: TfrxDBDataset;
     btnExcluir: TButton;
+    btnUpload: TButton;
     procedure btnVoltarClick(Sender: TObject);
     procedure btnPesquisarClick(Sender: TObject);
     procedure btnListarClick(Sender: TObject);
@@ -33,6 +34,7 @@ type
     procedure grdClientesDrawColumnCell(Sender: TObject; const Canvas: TCanvas;
       const Column: TColumn; const Bounds: TRectF; const Row: Integer;
       const Value: TValue; const State: TGridDrawStates);
+    procedure btnUploadClick(Sender: TObject);
   private
     { Private declarations }
     procedure PopulaListaClientes(pJson: TJSONArray);
@@ -44,7 +46,7 @@ type
 implementation
 
 uses
-   uFrmPrincipal, FMX.DialogService, StrUtils, uMinervaRequest;
+   uFrmPrincipal, FMX.DialogService, StrUtils, uMinervaRequest, uMinervaS3;
 
 {$R *.fmx}
 
@@ -111,6 +113,19 @@ end;
 procedure TfrmListaCliente.btnPesquisarClick(Sender: TObject);
 begin
    CarregaListaClientes;
+end;
+
+procedure TfrmListaCliente.btnUploadClick(Sender: TObject);
+begin
+   if cdsClientes.IsEmpty then
+   begin
+      TDialogService.ShowMessage('Não há dados para serem mostrados.');
+      Exit;
+   end;
+   // Argh! FastReport Trial aparentemente não deixa exportar para PDF.
+   frxListagemCliente.SaveToFile('C:\Minerva\ListaClientes.fp3');
+   TMinervaS3.UploadArquivo('C:\Minerva\ListaClientes.fp3');
+   TDialogService.ShowMessage('Upload realizado.');
 end;
 
 procedure TfrmListaCliente.btnVoltarClick(Sender: TObject);

@@ -37,7 +37,8 @@ var
 implementation
 
 uses
-   System.JSON, FMX.DialogService, uFrmMenu, uFrmCadCliente, uMinervaRequest;
+   System.JSON, FMX.DialogService, uFrmMenu, uFrmCadCliente, uMinervaRequest,
+   uMinervaS3;
 
 {$R *.fmx}
 {$R *.Surface.fmx MSWINDOWS}
@@ -45,6 +46,7 @@ uses
 
 procedure TfrmPrincipal.AbreMenuPrincipal;
 begin
+   TMinervaS3.InicializaServico;
    if mFrameMenu = nil then
    begin
       mFrameMenu := TfrmMenu.Create(Application);
